@@ -1,0 +1,11 @@
+bin
+obj
+*.csproj.user
+*.csproj.DotSettings
+.vscode
+.vscode-test
+.vscode-test-insiders
+.vs
+.git
+.gitignore
+Dockerfile
