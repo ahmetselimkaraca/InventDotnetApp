@@ -5,7 +5,7 @@
 - Start the Docker engine and run `docker-compose build` (sometimes it fails to fetch .NET 8 SDK, in which case re-running the command usually works)
 - After building is complete, run `docker-compose up`
 
-- Run `docker-compose run invent-dotnet-app --import-csv` to import the CSV files to the postgres database. This command should only be run once and before all other commands to test the application properly.
+- Run `docker-compose run invent-dotnet-app --import-csv` to import the CSV files to the postgres database
 - With the prefix `docker-compose run invent-dotnet-app <args>`
   - `--list-sales "[productIds]"`: Gets the records for the given product list.
   - `--get-profit "[storeIds]"`: Gets the profit for a given store.
@@ -24,7 +24,7 @@ For unit tests, `docker-compose run tests` should also run unit tests but I wasn
   - Password: dbpassword
 
 - Navigate to within the project file `cd InventDotnetApp`.
-- Run `dotnet run --import-csv` to import the CSV files to the postgres database. This command should only be run once and before all other commands to test the application properly.
+- Run `dotnet run --import-csv` to import the CSV files to the postgres database
 - With the prefix `dotnet run <args>`
   - `--list-sales "[productIds]"`: Gets the records for the given product list.
   - `--get-profit "[storeIds]"`: Gets the profit for a given store.
