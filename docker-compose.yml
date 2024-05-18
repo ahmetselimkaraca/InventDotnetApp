@@ -1,28 +1,41 @@
-version: '3.4'
+version: '3.8'
 
 services:
-  app:
-    image: inventdotnetapp:latest
-    build:
-      context: .
-      dockerfile: InventDotnetApp/Dockerfile
-    environment:
-      - ConnectionStrings__DefaultConnection=Host=db;Database=mydb;Username=myuser;Password=mypassword
-    depends_on:
-      - db
-    ports:
-      - "5000:80"
-
-  db:
+  postgres:
     image: postgres:latest
     environment:
-      POSTGRES_DB: mydb
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: invent-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: dbpassword
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+
+  invent-dotnet-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=invent-db;Username=postgres;Password=dbpassword
+    ports:
+      - "8080:80"
+    volumes:
+      - ./InventDotnetApp/Data:/app/Data
+  
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["dotnet", "test", "--logger:trx"]
+    depends_on:
+      - postgres
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=invent-db;Username=postgres;Password=dbpassword
+    volumes:
+      - ./TestResults:/app/TestResults
 
 volumes:
-  pgdata:
+  postgres_data:

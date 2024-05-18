@@ -65,7 +65,7 @@ public class CsvImportServiceTests
 
         // Assert
         var products = _dbContextMock.Object.Products.ToList();
-        Assert.That(1, Is.EqualTo(products.Count));
-        Assert.That("Product1", Is.EqualTo(products[0].ProductName));
+        Assert.That(products, Has.Count.EqualTo(1));
+        Assert.That(products[0].ProductName, Is.EqualTo("Product1"));
     }
 }

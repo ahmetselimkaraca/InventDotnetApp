@@ -55,8 +55,8 @@ public class SalesServiceTests
 
         // Assert
         var sales = _dbContext.InventorySales.ToList();
-        Assert.That(1, Is.EqualTo(sales.Count));
-        Assert.That(1, Is.EqualTo(sales[0].ProductId));
+        Assert.That(sales, Has.Count.EqualTo(1));
+        Assert.That(sales[0].ProductId, Is.EqualTo(1));
     }
 
     [Test]
@@ -84,8 +84,8 @@ public class SalesServiceTests
 
         // Assert
         var sales = _dbContext.InventorySales.ToList();
-        Assert.That(1, Is.EqualTo(sales.Count));
-        Assert.That(7, Is.EqualTo(sales[0].SalesQuantity));
-        Assert.That(8, Is.EqualTo(sales[0].Stock)); // Check that stock has decreased correctly
+        Assert.That(sales, Has.Count.EqualTo(1));
+        Assert.That(sales[0].SalesQuantity, Is.EqualTo(7));
+        Assert.That(sales[0].Stock, Is.EqualTo(8)); // Check that stock has decreased correctly
     }
 }
